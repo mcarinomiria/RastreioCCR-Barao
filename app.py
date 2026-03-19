@@ -78,6 +78,29 @@ if arquivo:
     # FILTRO PROTOCOLO SMS-RIO: 50 a 75 anos
     alvo = df[(df['Idade'] >= 50) & (df['Idade'] <= 75)].copy()
 
-    # 5. DASHBOARD DE INDICADORES
+# 5. DASHBOARD DE INDICADORES
     c1, c2, c3 = st.columns(3)
-    c1.metric("Público-Alvo (50-75a
+    c1.metric("Público-Alvo (50-75a)", len(alvo)) # Verifique se fechou o ") aqui
+    c2.metric("Aguardando SOF", len(alvo))
+    c3.metric("Status da Equipe", "Em Monitoramento")
+
+st.markdown("---")
+    
+    # 6. LISTA PRIORITÁRIA PARA OS ACS
+    st.subheader("🔴 Lista de Busca Ativa")
+    st.write("Pacientes que devem realizar a Pesquisa de Sangue Oculto (SOF) bianual.")
+    
+    # Exibe a tabela organizada
+    st.dataframe(
+        alvo[['Nome', 'Idade', 'CNS', 'Microárea']] if 'Microárea' in alvo.columns else alvo[['Nome', 'Idade', 'CNS']],
+        use_container_width=True
+    )
+
+    # Botão para baixar a lista limpa e levar para o território
+    csv = alvo.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label="📥 Baixar Lista para ACS (CSV)",
+        data=csv,
+        file_name=f"busca_ativa_ccr_{datetime.now().strftime('%d_%m_%Y')}.csv",
+        mime="text/csv",
+    )
