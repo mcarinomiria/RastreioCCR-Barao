@@ -12,7 +12,7 @@ if 'web' in st.secrets:
 
 authenticator = Authenticate(
     secret_credentials_path='client_secret.json',
-    redirect_uri='https://rastreioccr-barao-y9ck2rdmoasqbastp77xsu.streamlit.app',
+    redirect_uri='https://rastreioccr-barao-uz2gyzkjdnazaz7huvaskg.streamlit.app',
     cookie_name='mfc_auth_tijuca',
     cookie_key='chave_secreta_mfc_2026'
 )
